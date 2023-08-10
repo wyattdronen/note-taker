@@ -32,6 +32,10 @@ router.post('/notes', (req, res) => {
       body: newNote,
     };
     res.json(newNote)
+    res.status(201).json(newNote);
+  } else {
+      // 500 = server-side error
+      res.status(500).json('Error in adding note');
   }
 });
 // DELETE
@@ -45,7 +49,9 @@ router.delete('/notes/:id', (req, res) => {
     let noteString = JSON.stringify(filteredNotes, null, 3);
     fs.writeFileSync('db/db.json', noteString, (err)=> err
     ? console.error(err) : console.log('Note deleted!'));
-    
+    res.status(200).json(filteredNotes);
+  } else {
+    res.status(500).json('Error deleting note');
   }
   });
 

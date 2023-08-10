@@ -9,13 +9,17 @@ router.get('/notes', (req, res) => {
 });
 // POST
 router.post('/notes', (req, res) => {
+  console.log("here")
+  // title and text to req.body
   const {title, text} = req.body;
+  // add unique ID
   if (title && text) {
     const newNote = {
-      topic,
+      title,
       text,
       id: uuidv4(),
     };
+    // push to JSON
     notes.push(newNote);
     let noteString = JSON.stringify(notes, null, 3);
 
@@ -27,6 +31,7 @@ router.post('/notes', (req, res) => {
       status: 'success',
       body: newNote,
     };
+    res.json(newNote)
   }
 });
 // DELETE
